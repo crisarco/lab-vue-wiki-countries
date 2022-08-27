@@ -5,20 +5,20 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    component: () => import(/* webpackChunkName: 'index' */ './pages/index.vue')
+    component: () => import('./views/Home.vue')
   },
-  {
-    path: '/list',
-    name: 'list',
-    component: () => import(/* webpackChunkName: 'list' */ './pages/CountriesList.vue')
-    children: [
-      {
-        path: '/details',
-        name: 'details',
-        component: () => import(/* webpackChunkName: 'details' */ './pages/CountriesDetails.vue')
-      },
-    ]
-  }
+  // {
+  //   path: '/list',
+  //   name: 'list',
+  //   component: () => import(/* webpackChunkName: 'list' */ './pages/CountriesList.vue'),
+  //   children: [
+  //     {
+  //       path: '/details',
+  //       name: 'details',
+  //       component: () => import(/* webpackChunkName: 'details' */ './pages/CountriesDetails.vue')
+  //     },
+  //   ]
+  // }
 ];
 
 const router = createRouter({
@@ -28,3 +28,5 @@ const router = createRouter({
     document.getElementById('app').scrollIntoView();
   }
 });
+
+export default router
