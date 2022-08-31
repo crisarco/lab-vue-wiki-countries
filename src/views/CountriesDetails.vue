@@ -1,46 +1,39 @@
 <template>
-  
+  <div class="countries-details-container" v-if="countrySelected != null">
+    <img :src="`https://flagpedia.net/data/flags/icon/72x54/${countrySelected.alpha2Code}.png`" :alt="`Flag of the ${countrySelected.name}`">
+    <h1>{{ countrySelected.name }}</h1>
+    <p>Capital: {{ countrySelected.capital }}</p>
+    <p>Area: {{ countrySelected.area }}km2</p>
+    <router-link v-for="border in countrySelected.borders" :key="border"
+      :to="border">
+        {{ border }}
+      </router-link>
+  </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia';
+import CountryStore from '../store/CountryStore';
+
 export default {
   name: 'CountriesDetailsView',
-  data() {
-    return {
-      countryInfo: null,
-    };
+  computed: {
+    ...mapState(CountryStore, ['countrySelected']),
+  },
+  methods: {
+    ...mapActions(CountryStore, ['selectCountry']),
   },
   created() {
     const { countryCode } = this.$route.params;
     if (countryCode) {
-      fetch(`https://ih-countries-api.herokuapp.com/countries/${countryCode}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.countryInfo = {
-          area: data.area,
-          alpha2Code: data.alpha2Code.toLowerCase(),
-          name: data.name.common,
-          capital: data.capital[0],
-          borders: data.borders,
-        }
-      });
+      this.selectCountry(countryCode);
     }
 
     this.$watch(
       () => this.$route.params,
       (toParams, previousParams) => {
         if (toParams.countryCode) {
-          fetch(`https://ih-countries-api.herokuapp.com/countries/${toParams.countryCode}`)
-            .then((response) => response.json())
-            .then((data) => {
-              this.countryInfo = {
-                area: data.area,
-                alpha2Code: data.alpha2Code.toLowerCase(),
-                name: data.name.common,
-                capital: data.capital[0],
-                borders: data.borders,
-              }
-            });
+          this.selectCountry(toParams.countryCode);
         }
       }
     )
@@ -49,5 +42,7 @@ export default {
 </script>
 
 <style>
-
+ .countries-details-container {
+  flex: 0.8;
+ }
 </style>

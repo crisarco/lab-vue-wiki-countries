@@ -1,32 +1,23 @@
 // src/router.js
 import { createRouter, createWebHistory } from 'vue-router';
+import Home from './views/Home.vue';
+import CountriesDetails from './views/CountriesDetails.vue';
 
 const routes = [
   {
     path: '/',
     name: 'root',
-    component: () => import('./views/Home.vue')
+    component: Home,
   },
-  // {
-  //   path: '/list',
-  //   name: 'list',
-  //   component: () => import(/* webpackChunkName: 'list' */ './pages/CountriesList.vue'),
-  //   children: [
-  //     {
-  //       path: '/details',
-  //       name: 'details',
-  //       component: () => import(/* webpackChunkName: 'details' */ './pages/CountriesDetails.vue')
-  //     },
-  //   ]
-  // }
+  {
+    path: '/:countryCode',
+    name: 'countryDetails',
+    component: CountriesDetails,
+  },
+  
 ];
 
-const router = createRouter({
+export default createRouter({
   history: createWebHistory('/'),
   routes,
-  scrollBehavior() {
-    document.getElementById('app').scrollIntoView();
-  }
 });
-
-export default router
