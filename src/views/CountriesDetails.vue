@@ -4,10 +4,12 @@
     <h1>{{ countrySelected.name }}</h1>
     <p>Capital: {{ countrySelected.capital }}</p>
     <p>Area: {{ countrySelected.area }}km2</p>
-    <router-link v-for="border in countrySelected.borders" :key="border"
+    <div class="borders-container">
+      <router-link v-for="border in countrySelected.borders" :key="border"
       :to="border">
         {{ border }}
       </router-link>
+    </div>
   </div>
 </template>
 
@@ -44,5 +46,10 @@ export default {
 <style>
  .countries-details-container {
   flex: 0.8;
+ }
+
+ .borders-container {
+  display: flex;
+  flex-direction: column;
  }
 </style>

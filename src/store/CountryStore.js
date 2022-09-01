@@ -20,7 +20,7 @@ export default defineStore('countryStore', {
       });
     },
     countrySelected() {
-      const countryFound = this.countries.find( country.alpha3Code === this.countryCodeSelected);
+      const countryFound = this.countries.find((country) => country.alpha3Code === this.countryCodeSelected);
       if(countryFound) {
         return {
           area: countryFound.area,

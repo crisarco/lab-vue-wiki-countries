@@ -29,6 +29,8 @@ export default {
   display: flex;
   justify-content: flex-start;
   margin-top: 20px;
+  overflow-y: scroll;
+  height: 500px;
  }
 
  .scrollable-container {
